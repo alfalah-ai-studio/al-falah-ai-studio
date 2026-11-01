@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL FALAH AI STUDIO</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;
+ background:linear-gradient(135deg,#160d32,#35164c,#17132e);
+ color:white;min-height:100vh;
+}
+header{text-align:center;padding:35px 15px}
+.logo{font-size:32px;font-weight:bold;color:#ff9cdb}
+header p{color:#dbc9ec}
+.container{max-width:850px;margin:auto;padding:15px}
+.tabs{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+button{
+ border:0;border-radius:12px;padding:13px 22px;
+ cursor:pointer;font-weight:bold;
+ background:#dc72c9;color:white;
+}
+.tab{background:#45315d}
+.tab.active{background:#e56cbd}
+.panel{
+ background:#ffffff12;border:1px solid #ffffff30;
+ padding:25px;border-radius:20px;margin-top:22px;
+}
+h2{color:#ff9cdb}
+label{display:block;margin:15px 0 8px}
+textarea,select{
+ width:100%;padding:14px;border-radius:10px;
+ border:1px solid #c58bc8;background:#251b3d;
+ color:white;font-size:15px;
+}
+textarea{height:120px;resize:vertical}
+.generate{width:100%;margin-top:18px;font-size:16px}
+.result{
+ margin-top:20px;text-align:center;
+}
+.result img,.result video{
+ max-width:100%;border-radius:15px;
+}
+.hidden{display:none}
+footer{text-align:center;padding:30px;color:#d8b9d9}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">🌸 AL FALAH AI STUDIO</div>
+ <p>Imagine • Create • Inspire</p>
+ <p>AI Image & Video Creation Studio</p>
+</header>
+
+<div class="container">
+ <div class="tabs">
+  <button class="tab active" onclick="showTab('image',this)">
+   🖼️ Image Generator
+  </button>
+  <button class="tab" onclick="showTab('video',this)">
+   🎬 Video Generator
+  </button>
+ </div>
+
+ <section id="image" class="panel">
+  <h2>✨ AI Image Generator</h2>
+  <p>Turn your imagination into beautiful images.</p>
+
+  <label>Enter Your Image Prompt</label>
+  <textarea id="imagePrompt" placeholder="Describe the image you want to create..."></textarea>
+
+  <label>Choose Image Style</label>
+  <select id="imageStyle">
+   <option>Realistic</option>
+   <option>3D Cartoon</option>
+   <option>Cinematic</option>
+   <option>Fantasy</option>
+   <option>Anime</option>
+  </select>
+
+  <button class="generate" onclick="imageMessage()">
+   ✨ Generate Image
+  </button>
+  <div class="result" id="imageResult"></div>
+ </section>
+
+ <section id="video" class="panel hidden">
+  <h2>🎬 AI Video Generator</h2>
+  <p>Create amazing video prompts for your AI videos.</p>
+
+  <label>Enter Your Video Idea</label>
+  <textarea id="videoPrompt" placeholder="Describe your video scene..."></textarea>
+
+  <label>Video Duration</label>
+  <select id="duration">
+   <option>5 Seconds</option>
+   <option>10 Seconds</option>
+   <option>15 Seconds</option>
+   <option>30 Seconds</option>
+  </select>
+
+  <label>Video Style</label>
+  <select id="videoStyle">
+   <option>Realistic Cinematic</option>
+   <option>3D Animation</option>
+   <option>Miniature ASMR</option>
+   <option>Fantasy</option>
+  </select>
+
+  <button class="generate" onclick="makeVideoPrompt()">
+   🎬 Create Video Prompt
+  </button>
+  <div class="result" id="videoResult"></div>
+ </section>
+</div>
+
+<footer>
+ AL FALAH SKILLS INSTITUTE ❤️
+ <p>Creativity Has No Limits!</p>
+</footer>
+
+<script>
+function showTab(id,btn){
+ document.getElementById('image').classList.add('hidden');
+ document.getElementById('video').classList.add('hidden');
+ document.getElementById(id).classList.remove('hidden');
+ document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+ btn.classList.add('active');
+}
+
+function imageMessage(){
+ const p=document.getElementById('imagePrompt').value.trim();
+ const r=document.getElementById('imageResult');
+ if(!p){r.textContent='Please enter an image prompt first.';return;}
+ r.textContent='Your image generator connection will be activated in the next setup step.';
+}
+
+function makeVideoPrompt(){
+ const p=document.getElementById('videoPrompt').value.trim();
+ const d=document.getElementById('duration').value;
+ const s=document.getElementById('videoStyle').value;
+ const r=document.getElementById('videoResult');
+ if(!p){r.textContent='Please enter your video idea first.';return;}
+ const result=p+'. '+s+' style, '+d+', high quality, detailed visuals, smooth cinematic motion, vertical 9:16.';
+ r.innerHTML='';
+ const output=document.createElement('textarea');
+ output.value=result;
+ output.style.height='120px';
+ const copy=document.createElement('button');
+ copy.textContent='📋 Copy Video Prompt';
+ copy.onclick=async()=>{
+  await navigator.clipboard.writeText(result);
+  copy.textContent='Copied!';
+ };
+ r.append(output,copy);
+}
+</script>
+</body>
+</html>
