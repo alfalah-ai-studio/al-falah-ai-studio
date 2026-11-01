@@ -162,7 +162,12 @@ function makeVideoPrompt(){
 
 <p style="text-align:center;">Connect your Pollinations Account:</p>
 <polli-connect app-key="pk_PpAVcdI9f6numZ0d" budget="10" expiry="7"></polli-connect>
-
+<script>
+const connect = document.querySelector('polli-connect');
+connect.addEventListener('change', () => {
+  window.pollinationsApiKey = connect.apiKey;
+});
+</script>
 <script>
 const connect = document.querySelector('polli-connect');
 connect.addEventListener('change', () => {
